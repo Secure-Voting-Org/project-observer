@@ -5,7 +5,7 @@ const LedgerView = () => {
 
     const fetchLedger = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/public-ledger');
+            const res = await fetch(`http://${window.location.hostname}:5000/api/public-ledger`);
             if (res.ok) {
                 const data = await res.json();
                 setBlocks(data);
