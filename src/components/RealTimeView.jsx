@@ -5,7 +5,7 @@ const RealTimeView = () => {
 
     const fetchStats = async () => {
         try {
-            const res = await fetch(`http://${window.location.hostname}:5000/api/stats/turnout`);
+            const res = await fetch(`http://${window.location.hostname}:8081/api/stats/turnout`);
             if (res.ok) {
                 const data = await res.json();
                 setStats(data);
