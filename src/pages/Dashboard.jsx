@@ -60,35 +60,39 @@ const Dashboard = () => {
             <h2 className="m5-section-title">{t('actions.title')}</h2>
 
             <div className="m5-grid">
-                {/* Real-Time Turnout - Green Theme */}
-                <div className="m5-card" onClick={() => setView('realtime')}>
-                    <div>
-                        <div className="m5-icon-box" style={{ background: '#e8f5e9', color: '#2e7d32' }}>
-                            📊
+                {/* General Observer: Real-Time Turnout */}
+                {observer.role === 'general' && (
+                    <div className="m5-card" onClick={() => setView('realtime')}>
+                        <div>
+                            <div className="m5-icon-box" style={{ background: '#e8f5e9', color: '#2e7d32' }}>
+                                📊
+                            </div>
+                            <h3>{t('actions.realtime_title')}</h3>
+                            <p>{t('actions.realtime_desc')}</p>
                         </div>
-                        <h3>{t('actions.realtime_title')}</h3>
-                        <p>{t('actions.realtime_desc')}</p>
-                    </div>
-                    <div className="m5-access-link" style={{ color: '#2e7d32' }}>
-                        {t('actions.access_analytics')} →
-                    </div>
-                </div>
-
-                {/* Public Ledger - Saffron Theme */}
-                <div className="m5-card" onClick={() => setView('ledger')}>
-                    <div>
-                        <div className="m5-icon-box" style={{ background: '#fff3e0', color: '#f57c00' }}>
-                            ⛓️
+                        <div className="m5-access-link" style={{ color: '#2e7d32' }}>
+                            {t('actions.access_analytics')} →
                         </div>
-                        <h3>{t('actions.ledger_title')}</h3>
-                        <p>{t('actions.ledger_desc')}</p>
                     </div>
-                    <div className="m5-access-link" style={{ color: '#f57c00' }}>
-                        {t('actions.view_ledger')} →
-                    </div>
-                </div>
+                )}
 
-                {/* Reports - Blue Theme */}
+                {/* Expenditure Observer: Public Ledger */}
+                {observer.role === 'expenditure' && (
+                    <div className="m5-card" onClick={() => setView('ledger')}>
+                        <div>
+                            <div className="m5-icon-box" style={{ background: '#fff3e0', color: '#f57c00' }}>
+                                ⛓️
+                            </div>
+                            <h3>{t('actions.ledger_title')}</h3>
+                            <p>{t('actions.ledger_desc')}</p>
+                        </div>
+                        <div className="m5-access-link" style={{ color: '#f57c00' }}>
+                            {t('actions.view_ledger')} →
+                        </div>
+                    </div>
+                )}
+
+                {/* Common: Reports - Blue Theme */}
                 <div className="m5-card" onClick={() => setView('reports')}>
                     <div>
                         <div className="m5-icon-box" style={{ background: '#e3f2fd', color: '#1565c0' }}>
@@ -102,7 +106,7 @@ const Dashboard = () => {
                     </div>
                 </div>
 
-                {/* Emergency - Red Theme */}
+                {/* Common: Emergency - Red Theme */}
                 <div className="m5-card" onClick={() => alert('Emergency Protocol Initiated')} style={{ border: '1px solid #ffebee' }}>
                     <div>
                         <div className="m5-icon-box" style={{ background: '#ffebee', color: '#c62828' }}>
@@ -147,7 +151,7 @@ const Dashboard = () => {
                 <div className="m5-user-actions">
                     <LanguageSwitcher />
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <span style={{ fontWeight: 700, color: '#333' }}>• {t('header.observer')}</span>
+                        <span style={{ fontWeight: 700, color: '#333' }}>• {t('header.observer')} ({observer.role ? observer.role.toUpperCase() : 'GENERAL'})</span>
                     </div>
                     <button className="m5-logout-btn" onClick={handleLogout}>
                         <span>{t('header.logout')}</span>
