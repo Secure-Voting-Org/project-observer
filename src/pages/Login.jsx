@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Eye, EyeOff } from 'lucide-react';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -8,6 +9,7 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('general'); // 'general' | 'expenditure'
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
@@ -139,16 +141,35 @@ const Login = () => {
                             />
                         </div>
 
-                        <div className="input-group">
+                        <div className="input-group" style={{ position: 'relative' }}>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#333' }}>{t('login.password')}</label>
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 className="input-field"
                                 placeholder="Enter secure password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
+                                style={{ paddingRight: '3rem' }}
                             />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                style={{
+                                    position: 'absolute',
+                                    right: '0.75rem',
+                                    top: '2.3rem',
+                                    background: 'none',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    color: '#666',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    padding: '0.25rem'
+                                }}
+                            >
+                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
                         </div>
 
                         <div style={{ textAlign: 'right', marginBottom: '1.5rem' }}>

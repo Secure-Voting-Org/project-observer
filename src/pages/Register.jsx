@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Eye, EyeOff } from 'lucide-react';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -15,6 +16,8 @@ const Register = () => {
     });
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -163,30 +166,68 @@ const Register = () => {
                             />
                         </div>
 
-                        <div className="input-group">
+                        <div className="input-group" style={{ position: 'relative' }}>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#333' }}>{t('login.password')}</label>
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 className="input-field"
                                 name="password"
                                 placeholder="Create a strong password"
                                 value={formData.password}
                                 onChange={handleChange}
                                 required
+                                style={{ paddingRight: '3rem' }}
                             />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                style={{
+                                    position: 'absolute',
+                                    right: '0.75rem',
+                                    top: '2.3rem',
+                                    background: 'none',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    color: '#666',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    padding: '0.25rem'
+                                }}
+                            >
+                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
                         </div>
 
-                        <div className="input-group">
+                        <div className="input-group" style={{ position: 'relative' }}>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#333' }}>{t('register.confirm_password')}</label>
                             <input
-                                type="password"
+                                type={showConfirmPassword ? "text" : "password"}
                                 className="input-field"
                                 name="confirmPassword"
                                 placeholder="Confirm your password"
                                 value={formData.confirmPassword}
                                 onChange={handleChange}
                                 required
+                                style={{ paddingRight: '3rem' }}
                             />
+                            <button
+                                type="button"
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                style={{
+                                    position: 'absolute',
+                                    right: '0.75rem',
+                                    top: '2.3rem',
+                                    background: 'none',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    color: '#666',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    padding: '0.25rem'
+                                }}
+                            >
+                                {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
                         </div>
 
                         {error && <div style={{ color: '#d32f2f', marginBottom: '1.5rem', fontWeight: 500, background: '#ffebee', padding: '1rem', borderRadius: '8px' }}>⚠️ {error}</div>}
