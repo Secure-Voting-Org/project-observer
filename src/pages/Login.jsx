@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { Eye, EyeOff } from 'lucide-react';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -8,8 +9,28 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('general'); // 'general' | 'expenditure'
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+
+    // const location = useLocation();
+    // const [successMessage, setSuccessMessage] = useState('');
+
+    // useEffect(() => {
+    //     if (location.state?.message) {
+    //         setSuccessMessage(t(`login.${location.state.message}`));
+    //         // Clear state to prevent message reappearing on refresh
+    //         window.history.replaceState({}, document.title);
+    // useEffect(() => {
+    //     if (location.state?.message) {
+    //         setSuccessMessage(t(`login.${location.state.message}`));
+    //         // Clear state to prevent message reappearing on refresh
+    //         window.history.replaceState({}, document.title);
+    //     }
+    // }, [location, t]);
+
+    const [searchParams] = useSearchParams();
+    const successMessage = searchParams.get('registration') === 'success' ? t('login.registration_success') : '';
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,7 +41,7 @@ const Login = () => {
             const response = await fetch(`http://${window.location.hostname}:5000/api/observer/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password })
+                body: JSON.stringify({ username, password, role })
             });
 
             const data = await response.json();
@@ -73,7 +94,25 @@ const Login = () => {
                     <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem', color: '#192742' }}>{t('login.welcome')}</h2>
                     <p style={{ color: '#666', marginBottom: '2.5rem' }}>{t('login.identify')}</p>
 
+                    {successMessage && (
+                        <div style={{
+                            marginBottom: '1.5rem',
+                            padding: '1rem',
+                            background: '#e8f5e9',
+                            color: '#2e7d32',
+                            borderRadius: '8px',
+                            fontWeight: '600',
+                            border: '1px solid #c8e6c9',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.5rem'
+                        }}>
+                            ✅ {successMessage}
+                        </div>
+                    )}
+
                     {/* Tricolor Role Toggle */}
+                    <div style={{ marginBottom: '0.5rem', fontWeight: 600, color: '#333' }}>Select Your Role:</div>
                     <div className="role-toggle">
                         <button
                             className={`role-btn ${role === 'general' ? 'active' : ''}`}
@@ -102,17 +141,41 @@ const Login = () => {
                             />
                         </div>
 
-                        <div className="input-group">
+                        <div className="input-group" style={{ position: 'relative' }}>
                             <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#333' }}>{t('login.password')}</label>
                             <input
-                                type="password"
+                                type={showPassword ? "text" : "password"}
                                 className="input-field"
                                 placeholder="Enter secure password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required
+                                style={{ paddingRight: '3rem' }}
                             />
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                style={{
+                                    position: 'absolute',
+                                    right: '0.75rem',
+                                    top: '2.3rem',
+                                    background: 'none',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    color: '#666',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    padding: '0.25rem'
+                                }}
+                            >
+                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
                         </div>
+
+                        <div style={{ textAlign: 'right', marginBottom: '1.5rem' }}>
+                            <Link to="/forgot-password" style={{ color: '#F7941D', fontSize: '0.9rem', textDecoration: 'none' }}>{t('login.forgot_password', 'Forgot Password?')}</Link>
+                        </div>
+
 
                         {error && <div style={{ color: '#d32f2f', marginBottom: '1.5rem', fontWeight: 500, background: '#ffebee', padding: '1rem', borderRadius: '8px' }}>⚠️ {error}</div>}
 
@@ -139,6 +202,9 @@ const Login = () => {
                     </form>
 
                     <p style={{ marginTop: '2rem', textAlign: 'center', color: '#888', fontSize: '0.9rem' }}>
+                        {t('login.register_prompt')} <Link to="/register" style={{ color: '#F7941D', fontWeight: 'bold', textDecoration: 'none' }}>{t('login.register_link')}</Link>
+                    </p>
+                    <p style={{ marginTop: '1rem', textAlign: 'center', color: '#888', fontSize: '0.8rem', opacity: 0.7 }}>
                         {t('login.unauthorized')}
                     </p>
                 </div>
