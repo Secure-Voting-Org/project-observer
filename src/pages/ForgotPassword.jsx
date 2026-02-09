@@ -21,7 +21,7 @@ const ForgotPassword = () => {
         setError('');
         setIsLoading(true);
         try {
-            const response = await fetch(`http://${window.location.hostname}:5000/api/observer/forgot-password`, {
+            const response = await fetch(`http://${window.location.hostname}:5001/api/observer/forgot-password`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email })
@@ -50,7 +50,7 @@ const ForgotPassword = () => {
         e.preventDefault();
         setError('');
         try {
-            const response = await fetch(`http://${window.location.hostname}:5000/api/observer/verify-otp`, {
+            const response = await fetch(`http://${window.location.hostname}:5001/api/observer/verify-otp`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, otp })
@@ -78,7 +78,7 @@ const ForgotPassword = () => {
         }
 
         try {
-            const response = await fetch(`http://${window.location.hostname}:5000/api/observer/reset-password`, {
+            const response = await fetch(`http://${window.location.hostname}:5001/api/observer/reset-password`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, otp, newPassword })
