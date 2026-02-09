@@ -28,8 +28,7 @@ const Dashboard = () => {
 
     if (!observer) return null;
 
-    // Helper Component for the Hub View (M-5 Layout)
-    const DashboardHub = () => (
+    const DashboardHub = ({ t, setView, observer }) => (
         <>
             <div className="m5-hero">
                 <div className="m5-hero-bg-icon">🛡️</div>
@@ -182,7 +181,7 @@ const Dashboard = () => {
                     </button>
                 )}
 
-                {view === 'hub' && <DashboardHub />}
+                {view === 'hub' && <DashboardHub t={t} setView={setView} observer={observer} />}
                 {view === 'realtime' && <RealTimeView />}
                 {view === 'ledger' && <LedgerView />}
                 {view === 'reports' && <ReportsView />}

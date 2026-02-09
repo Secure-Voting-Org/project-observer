@@ -3,19 +3,19 @@ import React, { useEffect, useState } from 'react';
 const LedgerView = () => {
     const [blocks, setBlocks] = useState([]);
 
-    const fetchLedger = async () => {
-        try {
-            const res = await fetch(`http://${window.location.hostname}:8081/api/public-ledger`);
-            if (res.ok) {
-                const data = await res.json();
-                setBlocks(data);
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
     useEffect(() => {
+        const fetchLedger = async () => {
+            try {
+                const res = await fetch(`http://${window.location.hostname}:8081/api/public-ledger`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setBlocks(data);
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
         fetchLedger();
         const interval = setInterval(fetchLedger, 5000);
         return () => clearInterval(interval);
@@ -31,18 +31,26 @@ const LedgerView = () => {
             </div>
 
             <div className="stat-card" style={{ padding: 0, overflow: 'hidden' }}>
-                <div style={{ padding: '1rem', background: '#f8f9fa', borderBottom: '1px solid #ddd', display: 'grid', gridTemplateColumns: '100px 1fr 150px', fontWeight: 'bold' }}>
+                <div style={{ padding: '1rem', background: '#f8f9fa', borderBottom: '1px solid #ddd', display: 'grid', gridTemplateColumns: '80px 100px 1fr 1fr 100px', fontWeight: 'bold', gap: '1rem' }}>
+                    <div>Height</div>
                     <div>Time</div>
+                    <div>Prev Hash</div>
                     <div>Transaction Hash (SHA-256)</div>
                     <div>Origin</div>
                 </div>
                 <div style={{ maxHeight: '600px', overflowY: 'auto' }}>
                     {blocks.map((block, idx) => (
-                        <div key={idx} className="ledger-row" style={{ animation: 'fadeIn 0.5s ease' }}>
-                            <div style={{ color: '#666' }}>
+                        <div key={idx} className="ledger-row" style={{ animation: 'fadeIn 0.5s ease', display: 'grid', gridTemplateColumns: '80px 100px 1fr 1fr 100px', gap: '1rem', alignItems: 'center' }}>
+                            <div style={{ fontWeight: 'bold', color: '#333' }}>
+                                #{blocks.length - idx}
+                            </div>
+                            <div style={{ color: '#666', fontSize: '0.85rem' }}>
                                 {new Date(block.timestamp).toLocaleTimeString()}
                             </div>
-                            <div style={{ color: 'var(--primary-color)', wordBreak: 'break-all' }}>
+                            <div style={{ color: '#888', wordBreak: 'break-all', fontSize: '0.8rem', fontFamily: 'monospace' }}>
+                                {block.prev_hash ? block.prev_hash.substring(0, 16) + '...' : 'GENESIS'}
+                            </div>
+                            <div style={{ color: 'var(--primary-color)', wordBreak: 'break-all', fontSize: '0.8rem', fontFamily: 'monospace' }}>
                                 {block.transaction_hash}
                             </div>
                             <div>

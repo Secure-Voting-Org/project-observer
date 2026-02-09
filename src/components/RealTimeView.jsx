@@ -3,19 +3,19 @@ import React, { useEffect, useState } from 'react';
 const RealTimeView = () => {
     const [stats, setStats] = useState({ totalVotes: 0, breakdown: [] });
 
-    const fetchStats = async () => {
-        try {
-            const res = await fetch(`http://${window.location.hostname}:8081/api/stats/turnout`);
-            if (res.ok) {
-                const data = await res.json();
-                setStats(data);
-            }
-        } catch (err) {
-            console.error("Fetch stats failed", err);
-        }
-    };
-
     useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                const res = await fetch(`http://${window.location.hostname}:8081/api/stats/turnout`);
+                if (res.ok) {
+                    const data = await res.json();
+                    setStats(data);
+                }
+            } catch (err) {
+                console.error("Fetch stats failed", err);
+            }
+        };
+
         fetchStats();
         const interval = setInterval(fetchStats, 5000); // Poll every 5s
         return () => clearInterval(interval);
