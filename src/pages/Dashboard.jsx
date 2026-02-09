@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import RealTimeView from '../components/RealTimeView';
 import LedgerView from '../components/LedgerView';
 import ReportsView from '../components/ReportsView';
+import VoteVerification from '../components/VoteVerification';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 
@@ -10,7 +11,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
     const [observer, setObserver] = useState(null);
-    const [view, setView] = useState('hub'); // 'hub', 'realtime', 'ledger', 'reports'
+    const [view, setView] = useState('hub'); // 'hub', 'realtime', 'ledger', 'reports', 'verify'
 
     useEffect(() => {
         const storedObserver = localStorage.getItem('observer');
@@ -105,6 +106,20 @@ const Dashboard = () => {
                     </div>
                 </div>
 
+                {/* Vote Verification - Common for All Observers */}
+                <div className="m5-card" onClick={() => setView('verify')}>
+                    <div>
+                        <div className="m5-icon-box" style={{ background: '#f3e5f5', color: '#7b1fa2' }}>
+                            ✓
+                        </div>
+                        <h3>Vote Verification</h3>
+                        <p>Verify voter receipts and confirm votes were recorded</p>
+                    </div>
+                    <div className="m5-access-link" style={{ color: '#7b1fa2' }}>
+                        Verify Receipt →
+                    </div>
+                </div>
+
                 {/* Common: Emergency - Red Theme */}
                 <div className="m5-card" onClick={() => alert('Emergency Protocol Initiated')} style={{ border: '1px solid #ffebee' }}>
                     <div>
@@ -185,6 +200,7 @@ const Dashboard = () => {
                 {view === 'realtime' && <RealTimeView />}
                 {view === 'ledger' && <LedgerView />}
                 {view === 'reports' && <ReportsView />}
+                {view === 'verify' && <VoteVerification />}
             </main>
         </div>
     );
