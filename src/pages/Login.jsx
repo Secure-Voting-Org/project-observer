@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Eye, EyeOff } from 'lucide-react';
+import API_BASE from '../config/api';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -38,7 +39,7 @@ const Login = () => {
         setIsLoading(true);
 
         try {
-            const response = await fetch('/api/observer/login', {
+            const response = await fetch(\\\/api/observer/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ username, password, role })

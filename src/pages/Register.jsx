@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Eye, EyeOff } from 'lucide-react';
+import API_BASE from '../config/api';
 
 const Register = () => {
     const navigate = useNavigate();
@@ -39,7 +40,7 @@ const Register = () => {
         setIsLoading(true);
 
         try {
-            const response = await fetch('/api/observer/register', {
+            const response = await fetch(\\\/api/observer/register', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
