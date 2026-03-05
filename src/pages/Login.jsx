@@ -48,6 +48,7 @@ const Login = () => {
             const data = await response.json();
 
             if (data.success) {
+                localStorage.setItem('observer_token', data.token);
                 localStorage.setItem('observer', JSON.stringify(data.observer));
                 navigate('/dashboard');
             } else {

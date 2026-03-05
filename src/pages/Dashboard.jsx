@@ -24,6 +24,7 @@ const Dashboard = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('observer');
+        localStorage.removeItem('observer_token');
         navigate('/');
     };
 
