@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import API_BASE from '../config/api';
 
 const LedgerView = () => {
     const [blocks, setBlocks] = useState([]);
@@ -6,7 +7,7 @@ const LedgerView = () => {
     useEffect(() => {
         const fetchLedger = async () => {
             try {
-                const res = await fetch(`http://${window.location.hostname}:5000/api/public-ledger`);
+                const res = await fetch(`${API_BASE}/api/public-ledger`);
                 if (res.ok) {
                     const data = await res.json();
                     setBlocks(data);

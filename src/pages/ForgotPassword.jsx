@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
+import API_BASE from '../config/api';
 
 const ForgotPassword = () => {
     const navigate = useNavigate();
@@ -21,7 +22,7 @@ const ForgotPassword = () => {
         setError('');
         setIsLoading(true);
         try {
-            const response = await fetch(`http://${window.location.hostname}:5000/api/observer/forgot-password`, {
+            const response = await fetch(`${API_BASE}/api/observer/forgot-password`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email })
@@ -50,7 +51,7 @@ const ForgotPassword = () => {
         e.preventDefault();
         setError('');
         try {
-            const response = await fetch(`http://${window.location.hostname}:5000/api/observer/verify-otp`, {
+            const response = await fetch(`${API_BASE}/api/observer/verify-otp`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, otp })
@@ -78,7 +79,7 @@ const ForgotPassword = () => {
         }
 
         try {
-            const response = await fetch(`http://${window.location.hostname}:5000/api/observer/reset-password`, {
+            const response = await fetch(`${API_BASE}/api/observer/reset-password`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, otp, newPassword })

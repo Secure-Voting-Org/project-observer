@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Search, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
+import API_BASE from '../config/api';
 
 const VoteVerification = () => {
     const [receiptHash, setReceiptHash] = useState('');
@@ -14,7 +15,7 @@ const VoteVerification = () => {
         setIsLoading(true);
 
         try {
-            const response = await fetch(`http://${window.location.hostname}:5000/api/verify-receipt`, {
+            const response = await fetch(`${API_BASE}/api/verify-receipt`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ transactionHash: receiptHash.trim() })

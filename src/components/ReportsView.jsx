@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import API_BASE from '../config/api';
 
 const ReportsView = () => {
     const [exporting, setExporting] = useState(false);
@@ -7,7 +8,7 @@ const ReportsView = () => {
         setExporting(true);
         try {
             // Trigger download from backend API
-            const response = await fetch('http://localhost:5001/api/observer/export-ledger');
+            const response = await fetch(`${API_BASE}/api/observer/export-ledger`);
             if (!response.ok) throw new Error('Export failed');
 
             const blob = await response.blob();

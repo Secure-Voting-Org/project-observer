@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import API_BASE from '../config/api';
 
 const RealTimeView = () => {
     const [stats, setStats] = useState({ totalVotes: 0, breakdown: [] });
@@ -6,7 +7,7 @@ const RealTimeView = () => {
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const res = await fetch(`http://${window.location.hostname}:5000/api/stats/turnout`);
+                const res = await fetch(`${API_BASE}/api/stats/turnout`);
                 if (res.ok) {
                     const data = await res.json();
                     setStats(data);
