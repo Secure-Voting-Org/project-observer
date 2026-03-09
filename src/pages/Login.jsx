@@ -7,7 +7,7 @@ import API_BASE from '../config/api';
 const Login = () => {
     const navigate = useNavigate();
     const { t } = useTranslation();
-    const [username, setUsername] = useState('');
+    const [mobileNumber, setMobileNumber] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('general'); // 'general' | 'expenditure'
     const [showPassword, setShowPassword] = useState(false);
@@ -42,7 +42,7 @@ const Login = () => {
             const response = await fetch(`${API_BASE}/api/observer/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, password, role })
+                body: JSON.stringify({ mobile_number: mobileNumber, password, role })
             });
 
             const data = await response.json();
@@ -132,15 +132,19 @@ const Login = () => {
 
                     <form onSubmit={handleSubmit}>
                         <div className="input-group">
-                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#333' }}>{t('login.username')}</label>
-                            <input
-                                type="text"
-                                className="input-field"
-                                placeholder="e.g. observer1"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                required
-                            />
+                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#333' }}>Mobile Number</label>
+                            <div style={{ position: 'relative' }}>
+                                <User size={20} color="#666" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
+                                <input
+                                    type="text"
+                                    className="input-field"
+                                    placeholder="e.g. 9876543210"
+                                    value={mobileNumber}
+                                    onChange={(e) => setMobileNumber(e.target.value)}
+                                    required
+                                    style={{ paddingLeft: '3rem' }}
+                                />
+                            </div>
                         </div>
 
                         <div className="input-group" style={{ position: 'relative' }}>

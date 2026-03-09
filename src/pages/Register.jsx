@@ -10,7 +10,7 @@ const Register = () => {
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
-        username: '',
+        mobile_number: '',
         password: '',
         confirmPassword: '',
         role: 'general' // Default role
@@ -46,7 +46,7 @@ const Register = () => {
                 body: JSON.stringify({
                     fullName: formData.fullName,
                     email: formData.email,
-                    username: formData.username,
+                    mobile_number: formData.mobile_number, // Changed from username to mobile_number
                     password: formData.password,
                     role: formData.role
                 })
@@ -155,16 +155,20 @@ const Register = () => {
                         </div>
 
                         <div className="input-group">
-                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#333' }}>{t('login.username')}</label>
-                            <input
-                                type="text"
-                                className="input-field"
-                                name="username"
-                                placeholder="Choose a username"
-                                value={formData.username}
-                                onChange={handleChange}
-                                required
-                            />
+                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, color: '#333' }}>Mobile Number</label>
+                            <div style={{ position: 'relative' }}>
+                                <User size={20} color="#666" style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)' }} />
+                                <input
+                                    type="text"
+                                    name="mobile_number"
+                                    className="input-field"
+                                    placeholder="e.g. 9876543210"
+                                    value={formData.mobile_number}
+                                    onChange={handleChange}
+                                    required
+                                    style={{ paddingLeft: '3rem' }}
+                                />
+                            </div>
                         </div>
 
                         <div className="input-group" style={{ position: 'relative' }}>
