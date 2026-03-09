@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Eye, EyeOff } from 'lucide-react';
@@ -231,7 +231,7 @@ const Register = () => {
                             </button>
                         </div>
 
-                        {error && <div style={{ color: '#d32f2f', marginBottom: '1.5rem', fontWeight: 500, background: '#ffebee', padding: '1rem', borderRadius: '8px' }}>⚠️ {error}</div>}
+                        {error && <div style={{ color: '#d32f2f', marginBottom: '1.5rem', fontWeight: 500, background: '#ffebee', padding: '1rem', borderRadius: '8px' }}>?? {error}</div>}
 
                         <button
                             type="submit"
@@ -251,7 +251,7 @@ const Register = () => {
                                 transition: 'all 0.3s'
                             }}
                         >
-                            {isLoading ? t('login.verifying') : `${t('register.submit')} →`}
+                            {isLoading ? t('login.verifying') : `${t('register.submit')} ?`}
                         </button>
                     </form>
 

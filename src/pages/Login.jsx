@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Eye, EyeOff } from 'lucide-react';
@@ -109,7 +109,7 @@ const Login = () => {
                             alignItems: 'center',
                             gap: '0.5rem'
                         }}>
-                            ✅ {successMessage}
+                            ? {successMessage}
                         </div>
                     )}
 
@@ -179,7 +179,7 @@ const Login = () => {
                         </div>
 
 
-                        {error && <div style={{ color: '#d32f2f', marginBottom: '1.5rem', fontWeight: 500, background: '#ffebee', padding: '1rem', borderRadius: '8px' }}>⚠️ {error}</div>}
+                        {error && <div style={{ color: '#d32f2f', marginBottom: '1.5rem', fontWeight: 500, background: '#ffebee', padding: '1rem', borderRadius: '8px' }}>?? {error}</div>}
 
                         <button
                             type="submit"
@@ -199,7 +199,7 @@ const Login = () => {
                                 transition: 'all 0.3s'
                             }}
                         >
-                            {isLoading ? t('login.verifying') : `${t('login.access_portal')} →`}
+                            {isLoading ? t('login.verifying') : `${t('login.access_portal')} ?`}
                         </button>
                     </form>
 
